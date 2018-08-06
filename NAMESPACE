@@ -1,0 +1,38 @@
+useDynLib(LadR, .registration = TRUE)
+
+## base packages
+importFrom("grDevices",
+           dev.interactive)
+
+importFrom("graphics",
+           abline, mtext, par, plot, points, strheight, strwidth, text, title)
+
+importFrom("stats", # some S3 generics for which we define methods
+           median,pchisq,.checkMFClasses, .getXlevels, coef, delete.response, fitted, lsfit,
+           model.frame, model.matrix, model.response, na.pass, pnorm, qnorm,
+           qqnorm, quantile, residuals, runif, simulate, terms, vcov)
+
+importFrom("L1pack", # Package to ajust LAD Regression
+           l1fit, lad)
+
+## Our Exports
+export("ladfit","ladreg","likelihoodD","likelihoodDC","detectOutliers")
+#export(dlaplace, l1fit, l1pack.control, lad, plaplace, qlaplace, rlaplace,
+#       rmLaplace)
+
+## Exported S3 methods
+#export(simulate.lad)
+
+## register S3 methods
+#S3method(confint, lad)
+#S3method(deviance, lad)
+#S3method(fitted, lad)
+#S3method(logLik, lad)
+#S3method(plot, lad)
+#S3method(predict, lad)
+#S3method(print, lad)
+#S3method(print, summary.lad)
+#S3method(residuals, lad)
+#S3method(simulate, lad)
+#S3method(summary, lad)
+#S3method(vcov, lad)
