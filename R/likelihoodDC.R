@@ -24,11 +24,11 @@ likelihoodDC = function(y,X){
 
   n = length(y)
 
-  betai = coef(ladfit(X[-1,], y[-1]))
+  betai = coef(ladfit(as.matrix(X)[-1,], y[-1]))
   taoi = sum(abs(y-cbind(1,X)%*%as.matrix(betai)[,1]))
 
   for (i in 2:n){
-    betai = cbind(betai, coef(ladfit(X[-i,], y[-i])))
+    betai = cbind(betai, coef(ladfit(as.matrix(X)[-i,], y[-i])))
     taoi = c(taoi, sum(abs(y-cbind(1,X)%*%as.matrix(betai)[,i])))
   }
   taoi = taoi/(n-1)
@@ -37,7 +37,9 @@ likelihoodDC = function(y,X){
   beta = coef(ladfit(X, y))
 
   ##por enquanto
-  tao = 1.5088
+  #tao = 1.5088
+
+  tao = sum(abs(y-cbind(1,X)%*%as.matrix(coef(ladfit(X, y)))[,1]))/n
 
   LD_condicional =  2*n*log(sum(abs(y -as.matrix(cbind(1,X))%*%as.matrix(betai)[,1]))/sum(abs(y -as.matrix(cbind(1,X))%*%as.matrix(beta))))
 

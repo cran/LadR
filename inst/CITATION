@@ -1,12 +1,11 @@
 citHeader("To cite package LadR in publications use:")
 
 citEntry(entry="Manual",
-  title = "Routines for LAD estimation (dissertation)",
+  title = "Analysis of Adjustment of L1 Regression Models (dissertation)",
   author = personList(as.person("Kévin Allan Sales Rodrigues")),
-  year = "2018",
-  note = "R package version 0.1.1",
-  url = "http://l1pack.mat.utfsm.cl",
+  year = "2019",
+  note = "R package version 1.0.5",
   textVersion =
-  paste("Rodrigues, K. A. S., (2018). Routines for LAD estimation (dissertation).",
-  "R package version 0.1.1", "URL: http://l1pack.mat.utfsm.cl")
+  paste("Rodrigues, K. A. S., (2019). Analysis of Adjustment of L1 Regression Models (dissertation).",
+  "R package version 1.0.5")
 )

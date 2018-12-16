@@ -141,6 +141,10 @@ if(!is.null(excluir2)){
 ###determinando outilers
 outliers=setdiff(1:length(y),indices)
 
+outliers = list("all" = outliers, "y" = excluir, "x" = setdiff(outliers,excluir))
+
+
+
 
 ###esse vetor contém as observações que restaram
 return(outliers)

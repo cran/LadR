@@ -7,9 +7,9 @@
 #'
 #' @param y A vector with response variables.
 #' @param X A matrix or vector with explanatory variables.
-#' @param intercepto 1 for a model with intercept and 0 for a model without intercept.
-#' @param alfa  significance level to hypotheses tests.
-#' @param imprime 1 to print response variables, fitted values and residuals, 0 to don't print.
+#' @param intercept 1 for a model with intercept and 0 for a model without intercept.
+#' @param alpha  significance level to hypotheses tests.
+#' @param print 1 to print response variables, fitted values and residuals, 0 to don't print.
 #' @return
 #' \item{outliers     }{          A vector with outliers indices.}.
 #'
@@ -21,34 +21,30 @@
 #' @examples
 #' ### Using stackloss data
 #'
-#' ladreg(stack.loss, stack.x, intercepto =1, alfa=0.05, imprime=1)
+#' ladreg(stack.loss, stack.x, intercept =1, alpha=0.05, print=1)
 
 
 #Variáveis a serem definidas pelo usuário:
 
-#intercepto: recebendo o valor 0, ajusta o modelo sem intercepto e recebendo o valor 1, ajusta o modelo com intercepto.
+#intercept: recebendo o valor 0, ajusta o modelo sem intercepto e recebendo o valor 1, ajusta o modelo com intercepto.
 
-#imprime: recebendo o valor 1, imprime os valores observados, ajustados e os resíduos do modelo e recebendo 0, não imprime tais valores.
+#print: recebendo o valor 1, imprime os valores observados, ajustados e os resíduos do modelo e recebendo 0, não imprime tais valores.
 
-#laplace: recebendo o valor 1, imprime as estatísticas de seleção de variáveis que podem ser usadas no caso da distribuição dos dados
-#ser de Laplace e recebendo 0, não imprime tais estatísticas.
 
 
 #Verifica se o usuario pediu modelo com ou sem intercepto
 
 ##colocando valores "default"
-ladreg = function(y,X, intercepto =1, alfa=0.05, imprime=1){
+ladreg = function(y,X, intercept =1, alpha=0.05, print=1){
 
-  laplace =0
-
-  if(intercepto == 0){
+  if(intercept == 0){
     fit = ladfit(X, y, intercept = F)
     Xmat =X
     SEAm = sum(abs(y))
     fator=0
   }
 
-  if(intercepto == 1){
+  if(intercept == 1){
     fit = ladfit(X, y, intercept = T)
     Xmat =cbind(1,X)
     SEAm = sum(abs(y-median(y)))
@@ -86,8 +82,8 @@ ladreg = function(y,X, intercepto =1, alfa=0.05, imprime=1){
   #DP = matrix(0, nrow(coef1),1)
   aux = cbind(sqrt(DX))
   DP = tao*aux
-  IC[,1] = coef1 -1.96*tao*aux
-  IC[,2] = coef1 +1.96*tao*aux
+  IC[,1] = coef1 -qnorm(0.975)*tao*aux
+  IC[,2] = coef1 +qnorm(0.975)*tao*aux
   E = matrix(0, nrow(coef1), 1)
   for(i in 1:ncol(Xmat)) E[i] = coef1[i]/(tao*aux[i])
   E = abs(E)
@@ -111,79 +107,65 @@ ladreg = function(y,X, intercepto =1, alfa=0.05, imprime=1){
     y1 = matrix(0, nrow(X) -1, 1)
     k=1
     for(j in 1:nrow(X)) if (j != i) (X1[k,] = X[j,]) & (y1[k] = y[j]) & (k=k+1)
-    if(intercepto == 0) (fit1 =ladfit(X1,y1, intercept = F))
-    if(intercepto == 1) (fit1 =ladfit(X1,y1, intercept = T))
+    if(intercept == 0) (fit1 =ladfit(X1,y1, intercept = F))
+    if(intercept == 1) (fit1 =ladfit(X1,y1, intercept = T))
     coefaux = cbind(coef(fit1))
     yaju = Xmat[i,]%*%coefaux
     parc = abs(y[i] -yaju)
     SEAP = SEAP +parc
   }
 
-  #Impressao dos Resultados
-  cat(" ", fill=T)
-  cat("Observacoes Definidoras:", fill=T)
+  #Observacoes Definidoras
   print(def)
-  cat(" ", fill=T)
 
   #Verifica se o usuario pediu a impressao dos valores observados, ajustados e residuos
-  if(imprime == 1) {
+  if(print == 1) {
     OAR = cbind(y, aju, r)
-    cat("Valores Observados, Ajustados e Residuos:", fill =T)
-    cat(" ")
+    #Valores Observados, Ajustados e Residuos
     print(OAR)
-    cat(" ", fill=T)
   }
+
+  #Estimativa de tao
   tao = round(tao, digits=4)
-  cat("Estimativa de tao:", tao, fill=T)
-  cat(" ", fill=T)
-  cat("Estimativas dos Parametros do Modelo:", fill=T)
+
+  #Estimativas dos Parametros do Modelo
   coef1 = round(coef1, digits=4)
   print(coef1)
-  cat(" ", fill=T)
-  cat("Estimativas dos Erros Padrao dos Estimadores do Modelo:", fill=T)
+
+  #Estimativas dos Erros Padrao dos Estimadores do Modelo
   DP = round(DP, digits=4)
   print(DP)
-  cat(" ", fill=T)
-  cat("Intervalos de Confianca (95%):", fill=T)
+
+  #Intervalos de Confianca (95%)
   IC = round(IC, digits =4)
   print(IC)
-  cat(" ", fill=T)
-  cat("Estatistica do Teste Individual dos Parametros e Nivel Descritivo:", fill=T)
+
+  #Estatistica do Teste Individual dos Parametros e Nivel Descritivo
   TH = round(TH, digits =4)
   print(TH)
-  cat(" ", fill=T)
-  cat("Estatistica do Teste do Efeito de Regressao e Nivel Descritivo:", fill=T)
+
+  #Estatistica do Teste do Efeito de Regressao e Nivel Descritivo
   EReg = round(EReg, digits =4)
   print(EReg)
-  cat(" ", fill=T)
-  cat(" ", fill=T)
-  cat("Estatistica para Selecao de Variaveis:", fill=T)
-  cat(" ", fill=T)
+
+  ###Estatistica para Selecao de Variaveis
+
+  #Soma dos Erros Absolutos (SEA)
   SEA = round(SEA, digits=4)
-  cat("Soma dos Erros Absolutos (SEA):", SEA, fill=T)
-  cat(" ", fill=T)
+
+  #Erro Absoluto Medio (EAM)
   EAM = round(EAM, digits =4)
-  cat("Erro Absoluto Medio (EAM):", EAM, fill=T)
-  cat(" ", fill=T)
+
+  #Coeficiente de Determinacao Multipla - R2
   R2 = round(R2, digits=4)
-  cat("Coeficiente de Determinacao Multipla - R2:", R2, fill=T)
-  cat(" ", fill=T)
 
-  #Verifica se o usuario pediu a impressao das Estatisticas usadas para a Distribuicao Laplace
-
-  if(laplace == 1){
-    R3 = round(R3, digits=4)
-    cat("Coeficiente de Determinacao Multipla - R3:", R3, fill=T)
-    cat(" ", fill=T)
-    Raju = round(Raju, digits=4)
-    cat("Coeficiente de Determinacao Multipla Ajustado:", Raju, fill=T)
-    cat(" ", fill=T)
-  }
-
+  #Soma do Erros absolutos Preditivos (SEAP)
   SEAP =round(SEAP, digits=4)
-  cat("Soma do Erros absolutos Preditivos (SEAP):", SEAP, fill=T)
-  cat(" ", fill=T)
-  cat("**********************************************************", fill=T)
-  cat(" ", fill=T)
+
+  FIT = list("OAR" = OAR, "tao" = tao, "coef" = coef1,
+             "DP" = DP, "IC" = IC,  "TH" = TH, "EReg" = EReg,
+             "SEA" = SEA, "EAM" = EAM, "R2" = R2, "SEAP" = SEAP)
+
+  return(FIT)
 
 }

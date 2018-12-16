@@ -27,11 +27,12 @@ likelihoodD = function(y,X){
   ###Calculando taoi que e o tao sem a i-esima observacao
   ###e calculando os betai que sao betai[,i]
 
-  betai = coef(ladfit(X[-1,], y[-1]))
+
+  betai = coef(ladfit(as.matrix(X)[-1,], y[-1]))
   taoi = sum(abs(y-cbind(1,X)%*%as.matrix(betai)[,1]))
 
   for (i in 2:n){
-    betai = cbind(betai, coef(ladfit(X[-i,], y[-i])))
+    betai = cbind(betai, coef(ladfit(as.matrix(X)[-i,], y[-i])))
     taoi = c(taoi, sum(abs(y-cbind(1,X)%*%as.matrix(betai)[,i])))
   }
   taoi = taoi/(n-1)
@@ -39,7 +40,9 @@ likelihoodD = function(y,X){
   ###Calculando LD(betai, taoi)
 
   ##por enquanto
-  tao = 1.5088
+  #tao = 1.5088
+
+  tao = sum(abs(y-cbind(1,X)%*%as.matrix(coef(ladfit(X, y)))[,1]))/n
 
   LD = 2*(n*log(taoi[1]/tao) + abs(y[1] -t(as.matrix(cbind(1,X)[1,]))%*%as.matrix(betai)[,1])/taoi[1] -1)
 

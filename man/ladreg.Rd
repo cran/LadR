@@ -4,18 +4,18 @@
 \alias{ladreg}
 \title{Fitting LAD Models}
 \usage{
-ladreg(y, X, intercepto = 1, alfa = 0.05, imprime = 1)
+ladreg(y, X, intercept = 1, alpha = 0.05, print = 1)
 }
 \arguments{
 \item{y}{A vector with response variables.}
 
 \item{X}{A matrix or vector with explanatory variables.}
 
-\item{intercepto}{1 for a model with intercept and 0 for a model without intercept.}
+\item{intercept}{1 for a model with intercept and 0 for a model without intercept.}
 
-\item{alfa}{significance level to hypotheses tests.}
+\item{alpha}{significance level to hypotheses tests.}
 
-\item{imprime}{1 to print response variables, fitted values and residuals, 0 to don't print.}
+\item{print}{1 to print response variables, fitted values and residuals, 0 to don't print.}
 }
 \value{
 \item{outliers     }{          A vector with outliers indices.}.
@@ -26,7 +26,7 @@ Fitting LAD Models
 \examples{
 ### Using stackloss data
 
-ladreg(stack.loss, stack.x, intercepto =1, alfa=0.05, imprime=1)
+ladreg(stack.loss, stack.x, intercept =1, alpha=0.05, print=1)
 }
 \references{
 Dielman, T. E. (2005) Least absolute value regression: recent contributions.
