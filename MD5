@@ -1,5 +1,8 @@
-897f99ed74076dfe06f11b8e6032b2a2 *DESCRIPTION
-816b982306751f77fc206d6b1a51dee0 *NAMESPACE
+b66d1907c0da074a8a9ca0d84afc12c1 *DESCRIPTION
+d6b4dc28fe2339868b5fdc76df256456 *NAMESPACE
+a9b0ede3231eb4f0eb76a8876b99519b *R/CookDistance.R
+063a94b9366a0be3794c4851cae2fd52 *R/FD.R
+54141d4468de979b682670dde291dc9c *R/FD1.R
 392f0c37e22fa2bce349135fdfe66b46 *R/detectOutliers.R
 16c50e3fc741afefc0085c99f72849be *R/houses.R
 30594d9fe29f90287193de17975dad67 *R/ladfit.R
@@ -7,10 +10,13 @@ d5ad86951f50a4eb258cfb7530fc0595 *R/ladreg.R
 e46d10b3ee1ab0fdf4883ee3feb3ecec *R/likelihoodD.R
 dadad817b246caa05226344df6560643 *R/likelihoodDC.R
 bdc38a14867b5560a6fb5f3020842f42 *R/pollution.R
-dfe6095facbaa209e68872785610822f *build/partial.rdb
+2c7d55c6135be594a80b3844b74f1dcc *build/partial.rdb
 e719ad3f4e360bac89301ed4dc8f3ee4 *data/houses.rda
-f09f9a6d6c8bfacdc2bd67670a3b88fc *data/pollution.rda
-249faafb1a63f5f0dfc914ee1ba220bb *inst/CITATION
+ee65007653738c496a25b369cbfdbe8f *data/pollution.rda
+e49df59abdfaa6bb6b7d4d7cb45d2565 *inst/CITATION
+ff17c70cf873eb0b403d7563382e691c *man/CookDistance.Rd
+b8194e2115bb5af6cbaf253b352b352f *man/FD.Rd
+03e0f5853313d2cc36dc31e958fce7c2 *man/FD1.Rd
 72c61748abd5ac6ed383702e6ba5d693 *man/detectOutliers.Rd
 55c60c43cc26218c75b25bad35e1c0b8 *man/houses.Rd
 07acd43ca353d16e5af0ce920ad1d666 *man/ladfit.Rd

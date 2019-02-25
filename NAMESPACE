@@ -16,7 +16,7 @@ importFrom("L1pack", # Package to ajust LAD Regression
            l1fit, lad)
 
 ## Our Exports
-export("ladfit","ladreg","likelihoodD","likelihoodDC","detectOutliers")
+export("ladfit","ladreg","likelihoodD","likelihoodDC","detectOutliers","CookDistance","FD","FD1")
 #export(dlaplace, l1fit, l1pack.control, lad, plaplace, qlaplace, rlaplace,
 #       rmLaplace)
 
